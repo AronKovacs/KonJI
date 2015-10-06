@@ -1,0 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include "window.h"
+
+#include <stdio.h>
+
+struct KonJIWindow* createKonJIWindow(char* title, int w, int h) {
+	struct KonJIWindow* window = malloc(sizeof(struct KonJIWindow));
+
+	window->title = title;
+	window->w = w;
+	window->h = h;
+
+	char str[64];
+	sprintf(str, "mode %i, %i", window->w, window->h);
+	system(str);
+
+	/* Window size coordinates, be sure to start index at zero! */
+	SMALL_RECT windowSize = { 0, 0, window->w - 1, window->h - 1 };
+
+	/* A COORD struct for specificying the console's screen buffer dimensions */
+	COORD bufferSize = { window->w, window->h };
+	window->bufferSize = bufferSize;
+
+	/* Setting up different variables for passing to WriteConsoleOutput */
+	COORD characterBufferSize = { window->w, window->h };
+	window->characterBufferSize = characterBufferSize;
+	COORD characterPosition = { 0, 0 };
+	window->characterPosition = characterPosition;
+	SMALL_RECT consoleWriteArea = { 0, 0, window->w - 1, window->h - 1 };
+	window->consoleWriteArea = consoleWriteArea;
+
+	/* A CHAR_INFO structure containing data about a single character */
+	window->consoleBuffer = malloc(window->w * window->h * sizeof(CHAR_INFO));
+
+
+	/* initialize handles */
+	window->wHnd = GetStdHandle(STD_OUTPUT_HANDLE);
+	window->rHnd = GetStdHandle(STD_INPUT_HANDLE);
+
+	/* Set the console's title */
+	SetConsoleTitleA(window->title);
+
+	/* Set the window size */
+	SetConsoleWindowInfo(window->wHnd, TRUE, &windowSize);
+
+	/* Set the screen's buffer size */
+	SetConsoleScreenBufferSize(window->wHnd, window->bufferSize);
+	return window;
+}
+
+void drawKonJIWindow(struct KonJIWindow* window) {
+	WriteConsoleOutputA(window->wHnd, window->consoleBuffer, window->characterBufferSize, window->characterPosition, &window->consoleWriteArea);
+}
+
+void setPixel2c(struct KonJIWindow* window, int x, int y, unsigned char character, unsigned char attribute) {
+	window->consoleBuffer[window->w * y + x].Char.AsciiChar = character;
+	window->consoleBuffer[window->w * y + x].Attributes = attribute;
+}
+
+void setPixel1ci(struct KonJIWindow* window, int x, int y, CHAR_INFO ci) {
+	window->consoleBuffer[window->w * y + x] = ci;
+}
+
+void clearConsoleBuffer(struct KonJIWindow* window) {
+	for (int y = 0; y < window->h; y++) {
+		for (int x = 0; x < window->w; x++) {
+			window->consoleBuffer[window->w * y + x].Char.AsciiChar = 0;
+			window->consoleBuffer[window->w * y + x].Attributes = 0;
+		}
+	}
+}

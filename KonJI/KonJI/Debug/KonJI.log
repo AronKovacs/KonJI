@@ -1,26 +1,9 @@
-﻿Build started 06-Oct-15 11:47:39.
-     1>Project "C:\Users\Aron\Documents\GitHub\KonJI\KonJI\KonJI\KonJI.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
-         main.c
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(71): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-         c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(138): warning C4033: 'loadSprite' must return a value
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(135): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-         c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(178): warning C4244: '=': conversion from 'WORD' to 'char', possible loss of data
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(181): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-         c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(194): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-         c:\program files (x86)\windows kits\10\include\10.0.10150.0\ucrt\stdio.h(205): note: see declaration of 'fopen'
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(229): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\aron\documents\github\konji\konji\konji\main.c(166): warning C4715: 'loadSprite': not all control paths return a value
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Aron\Documents\GitHub\KonJI\KonJI\Debug\KonJI.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Aron\Documents\GitHub\KonJI\KonJI\Debug\KonJI.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Aron\Documents\GitHub\KonJI\KonJI\Debug\KonJI.lib" /MACHINE:X86 Debug\KonJI.res
-         Debug\main.obj
-         KonJI.vcxproj -> C:\Users\Aron\Documents\GitHub\KonJI\KonJI\Debug\KonJI.exe
-     1>Done Building Project "C:\Users\Aron\Documents\GitHub\KonJI\KonJI\KonJI\KonJI.vcxproj" (Build target(s)).
+﻿Build started 10/06/2015 18:37:43.
+     1>Project "C:\Users\matus\Source\Repos\KonJI\KonJI\KonJI\KonJI.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         KonJI.vcxproj -> C:\Users\matus\Source\Repos\KonJI\KonJI\Debug\KonJI.exe
+     1>Done Building Project "C:\Users\matus\Source\Repos\KonJI\KonJI\KonJI\KonJI.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.46
+Time Elapsed 00:00:00.04
