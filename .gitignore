@@ -44,3 +44,6 @@ Temporary Items
 
 # user defined
 *.opensdf
+.vs
+
+KonJI/Debug
