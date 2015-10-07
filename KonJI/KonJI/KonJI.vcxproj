@@ -143,17 +143,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="entity.h" />
+    <ClInclude Include="lists.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KonJI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lists.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="map.c" />
     <ClCompile Include="sprite.c" />
     <ClCompile Include="window.c" />
+    <ClCompile Include="world.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="entity.c" />
