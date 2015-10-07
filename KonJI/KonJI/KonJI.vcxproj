@@ -145,6 +145,7 @@
     <ClInclude Include="entity.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="utilities.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="sprite.c" />
+    <ClCompile Include="utilities.c" />
     <ClCompile Include="window.c" />
   </ItemGroup>
   <ItemGroup>
