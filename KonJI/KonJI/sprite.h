@@ -1,6 +1,8 @@
 #pragma once
 
 #include <windows.h>
+#include "window.h"
+#include <stdio.h>
 
 struct Sprite {
 	char w;

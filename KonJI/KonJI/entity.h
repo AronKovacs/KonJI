@@ -1,4 +1,5 @@
 #pragma once
+#include "sprite.h"
 
 //needs more meetings
 struct Entity {
@@ -9,9 +10,8 @@ struct Entity {
 	//AnimatedSprite
 	int tpf; //time per frame[ms]
 	unsigned char frame;
-	//sharing
-	union {
-		struct Sprite* sprite;
-		struct AnimatedSprite* anim_sprite;
-	};
+
+	struct Sprite* sprite;
 };
+
+void free_Entity(struct Entity*);

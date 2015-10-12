@@ -1,9 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "sprite.h"
-#include "window.h"
-
-#include <stdio.h>
 
 //format
 //[width max 256][height max 256][2bytes(~CHAR_INFO~) <- w*h]
@@ -20,16 +17,16 @@ struct Sprite* loadSprite(const unsigned char* file_name) {
 	unsigned char height;
 
 
-	fseek(in_file, 0, SEEK_SET);
-	fread(&width, sizeof(unsigned char), 1, in_file);
 	fseek(in_file, 1, SEEK_SET);
+	fread(&width, sizeof(unsigned char), 1, in_file);
+	fseek(in_file, 2, SEEK_SET);
 	fread(&height, sizeof(unsigned char), 1, in_file);
 
 	sprite->w = (unsigned int)width;
 	sprite->h = (unsigned int)height;
 	unsigned char* buffer = malloc(sizeof(unsigned char)*sprite->w*sprite->h * 2);
 
-	fseek(in_file, 2, SEEK_SET);
+	fseek(in_file, 3, SEEK_SET);
 	fread(buffer, sizeof(unsigned char), sprite->w*sprite->h * 2, in_file);
 	fclose(in_file);
 
