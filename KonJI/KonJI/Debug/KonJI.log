@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿Build started 12-Oct-15 2:20:43.
      1>Project "C:\Users\Aron\Documents\GitHub\KonJI\KonJI\KonJI\KonJI.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
@@ -22,3 +23,10 @@
 Build succeeded.
 
 Time Elapsed 00:00:00.99
+=======
+﻿Build started 10/07/2015 13:38:31.
+
+Build succeeded.
+
+Time Elapsed 00:00:00.02
+>>>>>>> origin/master

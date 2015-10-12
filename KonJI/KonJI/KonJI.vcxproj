@@ -147,6 +147,7 @@
     <ClInclude Include="map.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
+    <ClInclude Include="utilities.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="world.h" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="map.c" />
     <ClCompile Include="sprite.c" />
+    <ClCompile Include="utilities.c" />
     <ClCompile Include="window.c" />
     <ClCompile Include="world.c" />
   </ItemGroup>

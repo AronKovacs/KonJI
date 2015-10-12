@@ -1,5 +1,5 @@
 #include <windows.h> /* for HANDLE type, and console functions */
-#include <stdio.h> /* standard input/output */
+#include <conio.h>
 #include <stdlib.h> /* included for rand */
 #include <time.h>
 
@@ -9,15 +9,33 @@
 #include "window.h"
 #include "entity.h"
 #include "sprite.h"
+<<<<<<< HEAD
 #include "lists.h"
 
 //int main()
 //{
 	//srand(time(0));
+=======
+#include "utilities.h"
+>>>>>>> origin/master
 
 	//struct KonJIWindow* window = createKonJIWindow("KonJI", 80, 30);
 
+<<<<<<< HEAD
 	//clearConsoleBuffer(window);
+=======
+	struct Entity* entities;
+};
+
+
+int main()
+{
+	//srand(time(0));
+
+	struct KonJIWindow* window = createKonJIWindow("KonJI", 80, 30);
+
+	clearConsoleBuffer(window);
+>>>>>>> origin/master
 	
 	/*struct Sprite sprite;
 	sprite.w = 3;
@@ -49,6 +67,7 @@
 	//sprite->y = 3;
 	//drawSprite(window, sprite, 15, 3);
 	//setPixel2c(window, 3, 5, 'A', 100);
+<<<<<<< HEAD
 	//while (1) {
 	//	drawKonJIWindow(window);
 	//}
@@ -312,6 +331,35 @@ VOID WINAPI SetConsolePalette(COLORREF palette[], int fontX, int fontY, wchar_t 
 
 		SetConsoleInfo(hwndConsole, &ci);
 	}
+=======
+
+	double previous = getCurrentTime();
+	double lag = 0.0;
+	while (1)
+	{
+		double current = getCurrentTime();
+		double elapsed = current - previous;
+		previous = current;
+		lag += elapsed;
+
+		// process input
+		if (_kbhit()) {
+			char c = _getch();
+
+			if (c == 'x') {
+				break;
+			}
+		}
+
+		while (lag >= 16.666666666666668)
+		{
+			//update();
+			lag -= 16.666666666666668;
+		}
+
+		drawKonJIWindow(window);
+	}
+>>>>>>> origin/master
 }
 
 /******************************************************************************

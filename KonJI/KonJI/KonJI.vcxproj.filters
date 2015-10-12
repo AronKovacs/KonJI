@@ -27,6 +27,7 @@
     <ClInclude Include="window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="world.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -34,6 +35,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lists.h">
+=======
+    <ClInclude Include="utilities.h">
+>>>>>>> origin/master
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -52,6 +56,7 @@
     <ClCompile Include="window.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="world.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -59,6 +64,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lists.c">
+=======
+    <ClCompile Include="utilities.c">
+>>>>>>> origin/master
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
