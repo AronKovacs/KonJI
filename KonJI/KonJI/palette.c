@@ -1,52 +1,6 @@
 #include "palette.h"
 
 /******************************************************************************
-  main
-
-  Creates a palette with the default colors and changes font size.
-******************************************************************************/
-int main(void)
-{
-    /* Setting the color palette to the default colors
-    /* Browse MSDN for COLORREF to learn more about these RGB values */
-  COLORREF palette[16] = 
-  {
-    0x00000000, 0x00800000, 0x00008000, 0x00808000,
-    0x00000080, 0x00800080, 0x00008080, 0x00c0c0c0,
-    0x00808080, 0x00ff0000, 0x0000ff00, 0x00ffff00,
-    0x000000ff, 0x00ff00ff, 0x0000ffff, 0x00ffffff
-  };
-    /* Search MSDN for the RGB macro to easily generate COLORREF values */
-
-  SetConsolePalette(palette, 6, 6, L"");
-  printf("Small default font.\n");
-  Sleep(2000);
-  
-  SetConsolePalette(palette, 1, 2, L"Lucida Console");
-  printf("Too tiny to read Lucida!\n");
-  Sleep(2000);
-  
-  if (windowsVersionTest())
-  {
-    SetConsolePalette(palette, 8, 12, L"Consolas");
-    printf("More of a normal Consolas size.\n");
-  }
-  else
-  {
-    SetConsolePalette(palette, 8, 12, L"Lucidas");
-    printf("More of a normal Lucidas size.\n");
-  }
-  Sleep(2000);
-  
-  SetConsolePalette(palette, 43, 72, L"Lucida Console");
-  printf("Huge Lucida!\n");
-  
-  getchar();
-
-  return 0;
-}
-
-/******************************************************************************
   windowsVersionTest
 
   Checks to see if have Vista/7 or earlier by attempting to retrieve function
