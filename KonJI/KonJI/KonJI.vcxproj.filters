@@ -25,6 +25,9 @@
     <ClCompile Include="palette.c">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="volleyball_world.c">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lists.h">
@@ -52,6 +55,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="palette.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="volleyball_world.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
