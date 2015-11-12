@@ -17,11 +17,11 @@ struct Sprite* loadSprite(const unsigned char* file_name) {
 	unsigned char width;
 	unsigned char height;
 
-	fseek(in_file, 1, SEEK_SET);
+	fseek(in_file, 0, SEEK_SET);
 	fread(&frames, sizeof(unsigned char), 1, in_file);
-	fseek(in_file, 2, SEEK_SET);
+	fseek(in_file, 1, SEEK_SET);
 	fread(&width, sizeof(unsigned char), 1, in_file);
-	fseek(in_file, 3, SEEK_SET);
+	fseek(in_file, 2, SEEK_SET);
 	fread(&height, sizeof(unsigned char), 1, in_file);
 
 	sprite->frames = frames;

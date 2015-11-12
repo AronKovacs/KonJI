@@ -32,7 +32,7 @@ int main(void)
 	SetConsolePalette(palette, 8,8, L"");
   
 	struct KonJIWindow* window = createKonJIWindow("KonJI", 80, 50);
-	struct Sprite* sprite = loadSprite("data/hitler_white.kgf");
+	struct Sprite* sprite = loadSprite("data/hitler_ultrawhite.kgf");
 	HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);
 	DWORD numEvents = 0;
 	DWORD numEventsRead;
