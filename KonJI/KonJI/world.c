@@ -9,3 +9,8 @@ void worldUpdate(struct World* world)
 {
 	world->vtable->worldUpdate(world);
 }
+
+void worldDraw(struct World* world)
+{
+
+}

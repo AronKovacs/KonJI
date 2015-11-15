@@ -9,6 +9,7 @@ struct World;
 
 void worldProcessInput(struct World* world, INPUT_RECORD* events, int events_len);
 void worldUpdate(struct World* world);
+void worldDraw(struct World* world);
 
 struct WorldVTable
 {
