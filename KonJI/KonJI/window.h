@@ -1,8 +1,9 @@
 #pragma once
 
 #include <windows.h>
+#include "world.h"
 
-struct KonJIWindow {
+struct Window {
 	char* title;
 	int w;
 	int h;
@@ -14,10 +15,18 @@ struct KonJIWindow {
 	SMALL_RECT consoleWriteArea;
 	HANDLE wHnd;
 	HANDLE rHnd;
+
+	// Worlds
+	int nWorlds;
+	int activeWorld;
+	struct World** worlds;
 };
 
-struct KonJIWindow* createKonJIWindow(char* title, int w, int h);
-void drawKonJIWindow(struct KonJIWindow* window);
-void setPixel2c(struct KonJIWindow* window, int x, int y, unsigned char character, unsigned char attribute);
-void setPixel1ci(struct KonJIWindow* window, int x, int y, CHAR_INFO ci);
-void clearConsoleBuffer(struct KonJIWindow* window);
+struct Window* windowCreate(char* title, int w, int h);
+void windowDraw(struct Window* window);
+void windowsSetPixel2c(struct Window* window, int x, int y, unsigned char character, unsigned char attribute);
+void windowsSetPixel1ci(struct Window* window, int x, int y, CHAR_INFO ci);
+void windowClearConsoleBuffer(struct Window* window);
+
+void windowAddWorld(struct Window* window, struct World* world);
+void windowRemoveWorld(struct Window* window, int n);

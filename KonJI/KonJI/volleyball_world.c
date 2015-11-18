@@ -27,9 +27,9 @@ void volleyballProcessInput(struct VolleyballWorld* world, INPUT_RECORD* events,
 
 }
 
-void volleyballUpdate(struct VolleyballWorld* world)
+void volleyballUpdate(struct VolleyballWorld* world, double delta_time)
 {
-	//printf("volleyball update\n");
+
 }
 
 void volleyballWorldInit(struct VolleyballWorld* world)

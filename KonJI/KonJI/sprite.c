@@ -52,7 +52,7 @@ struct Sprite* loadSprite(const unsigned char* file_name) {
 	return sprite;
 }
 
-void drawSprite(struct KonJIWindow* window, struct Sprite* sprite, int x_pos, int y_pos) {
+void drawSprite(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
 	for (int y = 0; y < sprite->h; y++) {
 		for (int x = 0; x < sprite->w; x++) {
 
