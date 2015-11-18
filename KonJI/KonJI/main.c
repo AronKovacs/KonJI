@@ -26,24 +26,23 @@ const COLORREF palette[16] =
 
 int main(void)
 {
-	struct VolleyballWorld main_world;
-	volleyballWorldInit(&main_world);
+	struct VolleyballWorld volleyballWorld;
+	volleyballWorldInit(&volleyballWorld);
 
 	SetConsolePalette(palette, 8,8, L"");
   
-	struct KonJIWindow* window = createKonJIWindow("KonJI", 80, 50);
-	struct Sprite* sprite = loadSprite("data/hitler_white.kgf");
+	struct Window* window = windowCreate("KonJI", 80, 50);
 	HANDLE rHnd = GetStdHandle(STD_INPUT_HANDLE);
 	DWORD numEvents = 0;
 	DWORD numEventsRead;
+
+	windowAddWorld(window, &volleyballWorld);
 
 	double previous = getCurrentTime();
 	double lag = 0.0;
 	bool isRunning = true;
 
-	int posX = 15;
-	int posY = 15;
-	while (main_world.super.b_running)
+	while (isRunning)
 	{
 		// Process input
 		GetNumberOfConsoleInputEvents(rHnd, &numEvents);
@@ -57,7 +56,7 @@ int main(void)
 			// many events have been read into numEventsRead.
 			ReadConsoleInput(rHnd, eventBuffer, numEvents, &numEventsRead);
 
-			worldProcessInput((struct World *)&main_world, eventBuffer, numEvents);
+			worldProcessInput((struct World *)window->worlds[window->activeWorld], eventBuffer, numEvents);
 
 			// Clean up our event buffer:
 			free(eventBuffer);
@@ -74,9 +73,10 @@ int main(void)
 			lag -= 16.666666666666668;
 		}
 
-		clearConsoleBuffer(window);
-		drawSprite(window, sprite, posX, posY);
-		drawKonJIWindow(window);
+		windowClearConsoleBuffer(window);
+		//worldUpdate((struct World*)window->worlds[window->activeWorld], elapsed);
+		worldDraw(window, (struct World*)window->worlds[window->activeWorld]);
+		windowDraw(window);
 	}
 
 	return 0;

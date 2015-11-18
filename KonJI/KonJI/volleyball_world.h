@@ -9,7 +9,7 @@ struct VolleyballWorld
 };
 
 void volleyballProcessInput(struct VolleyballWorld* world, INPUT_RECORD* events, int events_len);
-void volleyballUpdate(struct VolleyballWorld* world);
+void volleyballUpdate(struct VolleyballWorld* world, double delta_time);
 
 extern struct WorldVTable VolleyballWorldVTable;
 
