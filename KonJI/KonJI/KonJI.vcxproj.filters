@@ -4,9 +4,6 @@
     <ClCompile Include="lists.c">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
-      <Filter>sources</Filter>
-    </ClCompile>
     <ClCompile Include="map.c">
       <Filter>sources</Filter>
     </ClCompile>
@@ -26,6 +23,9 @@
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="volleyball_world.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
