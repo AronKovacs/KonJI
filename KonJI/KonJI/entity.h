@@ -1,4 +1,5 @@
 #pragma once
+
 #include "sprite.h"
 
 //needs more meetings
@@ -14,4 +15,4 @@ struct Entity {
 	struct Sprite* sprite;
 };
 
-void free_Entity(struct Entity*);
+void free_Entity(struct Entity* entity);

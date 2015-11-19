@@ -1,37 +1,37 @@
 #include "lists.h"
 
-struct ListNode* createListNode_Entity(struct Entity* entity) {
-	struct ListNode* new_node = malloc(sizeof(struct ListNode));
+struct EntityListNode* entityListCreate(struct Entity* entity) {
+	struct EntityListNode* new_node = malloc(sizeof(struct EntityListNode));
 	new_node->entity = entity;
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return new_node;
 }
 
-struct ListNode* popListNode_Entity(struct ListNode* start, int n) {
-	struct ListNode* node = start;
+struct EntityListNode* entityListPop(struct EntityListNode* start, int n) {
+	struct EntityListNode* node = start;
 	for (int i = 0; i < n; i++) {
 		node = node->next;
 	}
 	if (node->prev == NULL) {
-		freeListNode_Entity(node);
+		entityListFree(node);
 		node->next->prev = NULL;
 		return node->next;
 	}
 	if (node->next == NULL) {
 		node->prev->next = NULL;
-		freeListNode_Entity(node);
+		entityListFree(node);
 		return start;
 	}
 	node->prev->next = node->next;
 	node->next->prev = node->prev;
-	freeListNode_Entity(node);
+	entityListFree(node);
 	return start;
 }
 
-struct ListNode* insertListNode_Entity(struct ListNode* start, struct Entity* entity, int n) {
-	struct ListNode* node = start;
-	struct ListNode* ins_node = malloc(sizeof(struct ListNode));
+struct EntityListNode* entityListInsert(struct EntityListNode* start, struct Entity* entity, int n) {
+	struct EntityListNode* node = start;
+	struct EntityListNode* ins_node = malloc(sizeof(struct EntityListNode));
 	ins_node->entity = entity;
 
 	if (n == 0) {
@@ -55,9 +55,9 @@ struct ListNode* insertListNode_Entity(struct ListNode* start, struct Entity* en
 	return start;
 }
 
-struct ListNode* pushListNode_Entity(struct ListNode* start, struct Entity* entity) {
-	struct ListNode* node = start;
-	struct ListNode* push_node = malloc(sizeof(struct ListNode));
+struct EntityListNode* entityListPush(struct EntityListNode* start, struct Entity* entity) {
+	struct EntityListNode* node = start;
+	struct EntityListNode* push_node = malloc(sizeof(struct EntityListNode));
 	push_node->entity = entity;
 	push_node->next = NULL;
 	while (1) {
@@ -71,13 +71,13 @@ struct ListNode* pushListNode_Entity(struct ListNode* start, struct Entity* enti
 	return start;
 }
 
-void swapListNode_Entity(struct ListNode* start, int n1, int n2) {
+void entityListSwap(struct EntityListNode* start, int n1, int n2) {
 	if (n1 == n2)
 		return;
 
-	struct ListNode* node = start;
-	struct ListNode* swap_node1;
-	struct ListNode* swap_node2;
+	struct EntityListNode* node = start;
+	struct EntityListNode* swap_node1;
+	struct EntityListNode* swap_node2;
 	
 	for (int i = 0; i < max(n1, n2)+1; i++) {
 		if (n1 == i) {
@@ -94,8 +94,8 @@ void swapListNode_Entity(struct ListNode* start, int n1, int n2) {
 	swap_node2->entity  = temp;
 }
 
-void freeListNode_Entity(struct ListNode* node) {
-	//free_Entity(node->entity);// fix this pico
+void entityListFree(struct EntityListNode* node) {
+	free_Entity(node->entity);// fix this pico
 }
 
-struct ListNode* qsortLinkedListNode_Entity(struct ListNode* start);
+struct EntityListNode* entityListSort(struct EntityListNode* start);

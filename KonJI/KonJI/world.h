@@ -25,5 +25,5 @@ struct World
 	bool b_running;
 	int players;
 	COLORREF palette[16];
-	struct ListNode* entities;
+	struct EntityListNode* entities;
 };
