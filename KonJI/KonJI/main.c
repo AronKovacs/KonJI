@@ -8,8 +8,6 @@
 #include <string.h>
 
 #include "window.h"
-#include "entity.h"
-#include "sprite.h"
 #include "palette.h"
 #include "lists.h"
 #include "utilities.h"

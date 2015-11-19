@@ -28,6 +28,9 @@
     <ClCompile Include="main.c">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="entity.c">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lists.h">
@@ -51,13 +54,13 @@
     <ClInclude Include="world.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="palette.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="volleyball_world.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,10 +74,5 @@
     <Filter Include="sources">
       <UniqueIdentifier>{863b5569-7778-4ee5-922b-3d99333cfdc4}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="entity.c">
-      <Filter>sources</Filter>
-    </None>
   </ItemGroup>
 </Project>
