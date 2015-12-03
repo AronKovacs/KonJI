@@ -4,7 +4,7 @@
 
 //format
 //[frames max 255][width max 255][height max 255][2bytes(~CHAR_INFO~) <- f*w*h]
-struct Sprite* loadSprite(const unsigned char* file_name) {
+struct Sprite* spriteLoad(const unsigned char* file_name) {
 	struct Sprite* sprite = malloc(sizeof(struct Sprite));
 	FILE *in_file;
 	in_file = fopen(file_name, "rb");
@@ -52,7 +52,7 @@ struct Sprite* loadSprite(const unsigned char* file_name) {
 	return sprite;
 }
 
-void drawSprite(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
+void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
 	for (int y = 0; y < sprite->h; y++) {
 		for (int x = 0; x < sprite->w; x++) {
 
@@ -65,7 +65,7 @@ void drawSprite(struct Window* window, struct Sprite* sprite, int x_pos, int y_p
 	}
 }
 
-void writeSprite(struct Sprite* sprite, const unsigned char* file_name) {
+void spriteWrite(struct Sprite* sprite, const unsigned char* file_name) {
 	FILE *out_file;
 
 	char* buffer = malloc(sizeof(char)*(2 * sprite->frames*sprite->w*sprite->h + 3));
@@ -86,4 +86,9 @@ void writeSprite(struct Sprite* sprite, const unsigned char* file_name) {
 
 	fclose(out_file);
 	free(buffer);
+}
+
+void spriteFree(struct Sprite* sprite) {
+	free(sprite->bitmap);
+	free(sprite);
 }
