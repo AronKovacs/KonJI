@@ -36,7 +36,7 @@ int main(void)
 
 	windowAddWorld(window, &volleyballWorld);
 
-	double previous = getCurrentTime();
+	long long int previous = getCurrentTime();
 	double lag = 0.0;
 	bool isRunning = true;
 
@@ -60,15 +60,15 @@ int main(void)
 			free(eventBuffer);
 		}
 
-		double current = getCurrentTime();
-		double elapsed = current - previous;
+		long long int current = getCurrentTime();
+		long long int elapsed = current - previous;
 		previous = current;
 		lag += elapsed;
 
-		while (lag >= 16.666666666666668)
+		while (lag >= 16)
 		{
 			//update();
-			lag -= 16.666666666666668;
+			lag -= 16;
 		}
 
 		windowClearConsoleBuffer(window);
