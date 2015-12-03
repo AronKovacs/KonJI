@@ -3,6 +3,7 @@
 #include "palette.h"
 #include "lists.h"
 #include "window.h"
+#include "camera.h"
 
 #include <stdbool.h>
 
@@ -25,5 +26,6 @@ struct World
 	bool b_running;
 	int players;
 	COLORREF palette[16];
+	struct Camera camera;
 	struct EntityListNode* entities;
 };

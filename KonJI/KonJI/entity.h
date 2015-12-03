@@ -1,11 +1,12 @@
 #pragma once
 
 #include "sprite.h"
+#include <math.h>
 
 //needs more meetings
 struct Entity {
-	int x;
-	int y;
+	double x;
+	double y;
 	int z;
 
 	//AnimatedSprite
@@ -15,4 +16,6 @@ struct Entity {
 	struct Sprite* sprite;
 };
 
-void free_Entity(struct Entity* entity);
+struct Entity* entityCreate(struct Sprite* sprite, double x, double y, int z, int tpf);
+void entityDraw(struct Window* window, struct Entity* entity);
+void entityFree(struct Entity* entity);

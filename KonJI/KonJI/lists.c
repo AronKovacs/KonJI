@@ -76,8 +76,8 @@ void entityListSwap(struct EntityListNode* start, int n1, int n2) {
 		return;
 
 	struct EntityListNode* node = start;
-	struct EntityListNode* swap_node1;
-	struct EntityListNode* swap_node2;
+	struct EntityListNode* swap_node1 = NULL;
+	struct EntityListNode* swap_node2 = NULL;
 	
 	for (int i = 0; i < max(n1, n2)+1; i++) {
 		if (n1 == i) {
@@ -85,6 +85,9 @@ void entityListSwap(struct EntityListNode* start, int n1, int n2) {
 		}
 		if (n2 == i) {
 			swap_node2 = node;
+		}
+		if (n1 != NULL && n2 != NULL) {
+			break;
 		}
 		node = node->next;
 	}
@@ -95,7 +98,8 @@ void entityListSwap(struct EntityListNode* start, int n1, int n2) {
 }
 
 void entityListFree(struct EntityListNode* node) {
-	free_Entity(node->entity);// fix this pico
+	entityFree(node->entity);
+	free(node);
 }
 
 struct EntityListNode* entityListSort(struct EntityListNode* start);

@@ -146,13 +146,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="lists.h" />
     <ClInclude Include="map.h" />
     <ClInclude Include="palette.h" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utilities.h" />
+    <ClInclude Include="vector2.h" />
     <ClInclude Include="volleyball_world.h" />
     <ClInclude Include="window.h" />
     <ClInclude Include="world.h" />
@@ -166,8 +169,11 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="map.c" />
     <ClCompile Include="palette.c" />
+    <ClCompile Include="physics.c" />
+    <ClCompile Include="camera.c" />
     <ClCompile Include="sprite.c" />
     <ClCompile Include="utilities.c" />
+    <ClCompile Include="vector2.c" />
     <ClCompile Include="volleyball_world.c" />
     <ClCompile Include="window.c" />
     <ClCompile Include="world.c" />
