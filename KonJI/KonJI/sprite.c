@@ -88,6 +88,10 @@ void spriteWrite(struct Sprite* sprite, const unsigned char* file_name) {
 	free(buffer);
 }
 
+CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int frame, unsigned int x, unsigned int y) {
+	return sprite->bitmap[frame][sprite->w * y + x];
+}
+
 void spriteFree(struct Sprite* sprite) {
 	free(sprite->bitmap);
 	free(sprite);

@@ -20,6 +20,7 @@ void worldDraw(struct Window* window, struct World* world)
 	struct EntityListNode *node = world->entities;
 	int n;
 	for (n = 0; node->next != NULL; node = node->next, n++);
+	n = n + 1;
 
 	struct Entity** entities = malloc(n * sizeof(struct Entity*));
 	node = world->entities;
