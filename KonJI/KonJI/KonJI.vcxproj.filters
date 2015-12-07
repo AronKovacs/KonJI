@@ -40,6 +40,9 @@
     <ClCompile Include="camera.c">
       <Filter>sources</Filter>
     </ClCompile>
+    <ClCompile Include="vector2i.c">
+      <Filter>sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lists.h">
@@ -79,6 +82,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2i.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

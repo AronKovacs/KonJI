@@ -24,6 +24,9 @@ const COLORREF palette[16] =
 
 int main(void)
 {
+	struct Entity* h1 = entityCreate(spriteLoad("data/hitler.kgf"), 10, 10, 1, 0);
+	//struct Entity* h2 = entityCreate(spriteLoad("data/hitler.kgf"), 25, 25, 1, 0);
+	
 	struct VolleyballWorld volleyballWorld;
 	volleyballWorldInit(&volleyballWorld);
 
@@ -37,7 +40,7 @@ int main(void)
 	windowAddWorld(window, &volleyballWorld);
 
 	long long int previous = getCurrentTime();
-	double lag = 0.0;
+	long long int lag = 0.0;
 	bool isRunning = true;
 
 	while (isRunning)
@@ -74,6 +77,7 @@ int main(void)
 		windowClearConsoleBuffer(window);
 		//worldUpdate((struct World*)window->worlds[window->activeWorld], elapsed);
 		worldDraw(window, (struct World*)window->worlds[window->activeWorld]);
+		//entityDraw(window, h1);
 		windowDraw(window);
 	}
 

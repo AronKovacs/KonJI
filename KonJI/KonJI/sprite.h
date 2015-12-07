@@ -19,3 +19,4 @@ struct Sprite* spriteLoad(const unsigned char* file_name);
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos);
 void spriteWrite(struct Sprite* sprite, const unsigned char* file_name);
 void spriteFree(struct Sprite* sprite);
+CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int frame, unsigned int x, unsigned int y);
