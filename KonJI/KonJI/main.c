@@ -16,17 +16,14 @@
 
 const COLORREF palette[16] =
 {
+	0x00000000, 0x00ffffff, 0x00ffffff, 0x00ffffff,
 	0x00ffffff, 0x00ffffff, 0x00ffffff, 0x00ffffff,
 	0x00ffffff, 0x00ffffff, 0x00ffffff, 0x00ffffff,
-	0x00ffffff, 0x00ffffff, 0x00ffffff, 0x00ffffff,
-	0x00ffffff, 0x00ffffff, 0x00ffffff, 0x00000000
+	0x00ffffff, 0x00ffffff, 0x00ff0000, 0x00ffffff
 };
 
 int main(void)
 {
-	struct Entity* h1 = entityCreate(spriteLoad("data/hitler.kgf"), 10, 10, 1, 0);
-	//struct Entity* h2 = entityCreate(spriteLoad("data/hitler.kgf"), 25, 25, 1, 0);
-	
 	struct VolleyballWorld volleyballWorld;
 	volleyballWorldInit(&volleyballWorld);
 

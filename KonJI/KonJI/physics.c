@@ -25,43 +25,42 @@ int collisionPixelPerfect(struct Entity *entity1, struct Entity *entity2) {
 
 	struct Vector2i topLeft, bottomRight;
 	if (entity1->y > entity2->y) {
-		topLeft.y = floor(entity2->y);
+		topLeft.y = (int)floor(entity1->y);
 	}
 	else {
-		topLeft.y = floor(entity2->y);
+		topLeft.y = (int)floor(entity2->y);
 	}
 
-	if ( (entity1->y + entity1->sprite->h) > (entity2->y + entity2->sprite->h)) {
-		bottomRight.y = floor(entity1->y + entity1->sprite->h);
+	if ( (entity1->y + entity1->sprite->h) < (entity2->y + entity2->sprite->h)) {
+		bottomRight.y = (int)floor(entity1->y + entity1->sprite->h);
 	}
 	else {
-		bottomRight.y = floor(entity2->y + entity2->sprite->h);
+		bottomRight.y = (int)floor(entity2->y + entity2->sprite->h);
 	}
 
 	if (entity1->x > entity2->x) {
-		topLeft.x = floor(entity2->x);
+		topLeft.x = (int)floor(entity1->x);
 	}
 	else {
-		topLeft.x = floor(entity1->x);
+		topLeft.x = (int)floor(entity2->x);
 	}
 
-	if (entity1->x + entity1->sprite->w > entity2->x + entity2->sprite->w) {
-		bottomRight.x = floor(entity2->x + entity2->sprite->w);
+	if (entity1->x + entity1->sprite->w < entity2->x + entity2->sprite->w) {
+		bottomRight.x = (int)floor(entity1->x + entity1->sprite->w);
 	}
 	else {
-		bottomRight.x = floor(entity1->x + entity1->sprite->w);
+		bottomRight.x = (int)floor(entity2->x + entity2->sprite->w);
 	}
-
 
 	CHAR_INFO empty_pixel;
 	empty_pixel.Attributes = 0;
 	empty_pixel.Char.AsciiChar = 0;
 	for (int x = topLeft.x; x < bottomRight.x; x++) {
 		for (int y = topLeft.y; y < bottomRight.y; y++) {
-			CHAR_INFO pixel1 = spriteAt(entity1->sprite, entity1->frame, x - floor(entity1->x), y - floor(entity1->y));
-			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - floor(entity2->x), y - floor(entity2->y));
+			CHAR_INFO pixel1 = spriteAt(entity1->sprite, entity1->frame, x - (int)floor(entity1->x), y - (int)floor(entity1->y));
+			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - (int)floor(entity2->x), y - (int)floor(entity2->y));
 
-			if (eq_charinfo(pixel1, pixel2)) {
+			if (!eq_charinfo(pixel1, empty_pixel) && !eq_charinfo(pixel2, empty_pixel)) {
 				return true;
 			}
 		}

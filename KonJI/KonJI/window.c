@@ -3,6 +3,7 @@
 #include "window.h"
 
 #include <stdio.h>
+#include <string.h>
 
 struct Window* windowCreate(char* title, int w, int h) {
 	struct Window* window = malloc(sizeof(struct Window));
@@ -12,8 +13,7 @@ struct Window* windowCreate(char* title, int w, int h) {
 	window->h = h;
 
 	char str[64];
-	sprintf(str, "mode %i, %i", window->w, window->h);
-	system(str);
+	sprintf(str, "mode %d, %d", w, h);
 
 	/* Window size coordinates, be sure to start index at zero! */
 	SMALL_RECT windowSize = { 0, 0, window->w - 1, window->h - 1 };
