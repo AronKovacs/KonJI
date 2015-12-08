@@ -1,7 +1,7 @@
 #pragma once
-#include "vector2.h"
+#include "vector2d.h"
 
 struct Camera {
-	struct Vector2 pos;
+	struct Vector2d pos;
 	char palette[16];
 };

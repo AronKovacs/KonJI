@@ -155,7 +155,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utilities.h" />
-    <ClInclude Include="vector2.h" />
+    <ClInclude Include="vector2d.h" />
     <ClInclude Include="vector2i.h" />
     <ClInclude Include="volleyball_world.h" />
     <ClInclude Include="window.h" />
@@ -174,7 +174,7 @@
     <ClCompile Include="camera.c" />
     <ClCompile Include="sprite.c" />
     <ClCompile Include="utilities.c" />
-    <ClCompile Include="vector2.c" />
+    <ClCompile Include="vector2d.c" />
     <ClCompile Include="vector2i.c" />
     <ClCompile Include="volleyball_world.c" />
     <ClCompile Include="window.c" />

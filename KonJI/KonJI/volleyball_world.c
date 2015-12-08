@@ -38,9 +38,11 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 	world->super.b_running = true;
 	world->super.entities = NULL;
 
-	struct Entity* h1 = entityCreate(spriteLoad("data/hitler.kgf"), 10, 10, 1, 0);
-	//struct Entity* h2 = entityCreate(spriteLoad("data/hitler.kgf"), 25, 25, 1, 0);
+	struct Entity* h1 = entityCreate(spriteLoad("data/hitler_ultrawhite.kgf"), 10, 10, 0, 0);
+	struct Entity* h2 = entityCreate(spriteLoad("data/hitler_ultrawhite.kgf"), 10, 10, 2, 0);
+	struct Entity* h3 = entityCreate(spriteLoad("data/hitler.kgf"), 25, 25, 1, 0);
 	
 	world->super.entities = entityListCreate(h1);
-	//entityListPush(world->super.entities, h2);
+	entityListPush(world->super.entities, h2);
+	entityListPush(world->super.entities, h3);
 }

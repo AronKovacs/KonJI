@@ -1,7 +1,7 @@
 #pragma once
 
 #include "entity.h"
-#include "vector2.h"
+#include "vector2d.h"
 #include <math.h>
 
 

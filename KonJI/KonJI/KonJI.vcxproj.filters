@@ -34,13 +34,13 @@
     <ClCompile Include="physics.c">
       <Filter>sources</Filter>
     </ClCompile>
-    <ClCompile Include="vector2.c">
-      <Filter>sources</Filter>
-    </ClCompile>
     <ClCompile Include="camera.c">
       <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="vector2i.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2d.c">
       <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,13 +78,13 @@
     <ClInclude Include="physics.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="vector2.h">
-      <Filter>headers</Filter>
-    </ClInclude>
     <ClInclude Include="camera.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="vector2i.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

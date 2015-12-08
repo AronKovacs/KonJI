@@ -20,12 +20,14 @@ void worldDraw(struct Window* window, struct World* world)
 	struct EntityListNode *node = world->entities;
 	int n;
 	for (n = 0; node->next != NULL; node = node->next, n++);
-	n = n + 1;
 
-	struct Entity** entities = malloc(n * sizeof(struct Entity*));
+	struct Entity** entities = malloc((n+1) * sizeof(struct Entity*));
 	node = world->entities;
-	for (int i = 0; node->next != NULL; node = node->next, i++){
+	for (int i = 0;; node = node->next, i++){
 		entities[i] = node->entity;
+		if (node->next == NULL) {
+			break;
+		}
 	}
 
 	for (int i = 1; i < n; i++) {
@@ -38,7 +40,7 @@ void worldDraw(struct Window* window, struct World* world)
 		}
 	}
 
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i <= n; i++) {
 		entityDraw(window, entities[i]);
 	}
 
