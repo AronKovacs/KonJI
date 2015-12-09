@@ -55,7 +55,9 @@ struct Sprite* spriteLoad(const unsigned char* file_name) {
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
 	for (int y = 0; y < sprite->h; y++) {
 		for (int x = 0; x < sprite->w; x++) {
-
+			if (x_pos + x >= window->w || y_pos + y >= window->h) {
+				continue;
+			}
 			if (sprite->bitmap[sprite->current_frame][sprite->w * y + x].Char.AsciiChar != 0 &&
 				sprite->bitmap[sprite->current_frame][sprite->w * y + x].Attributes != 0) {
 				window->consoleBuffer[x_pos + x + (y_pos + y)*window->w] = sprite->bitmap[sprite->current_frame][sprite->w * y + x];

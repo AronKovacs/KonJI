@@ -36,8 +36,10 @@ int main(void)
 
 	windowAddWorld(window, &volleyballWorld);
 
-	long long int previous = getCurrentTime();
-	long long int lag = 0.0;
+	long long unsigned int previous = getCurrentTime();
+	long long unsigned int lag = 0;
+	long long unsigned int current = 0;
+	long long unsigned int elapsed = 0;
 	bool isRunning = true;
 
 	while (isRunning)
@@ -60,8 +62,8 @@ int main(void)
 			free(eventBuffer);
 		}
 
-		long long int current = getCurrentTime();
-		long long int elapsed = current - previous;
+		current = getCurrentTime();
+		elapsed = current - previous;
 		previous = current;
 		lag += elapsed;
 

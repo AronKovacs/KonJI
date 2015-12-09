@@ -50,7 +50,7 @@ struct Window* windowCreate(char* title, int w, int h) {
 	/* Initialize worlds */
 	window->nWorlds = 0;
 	window->activeWorld = 0;
-	window->worlds = (struct World**)malloc(sizeof(struct World*));
+	window->worlds = NULL;
 
 	return window;
 }
