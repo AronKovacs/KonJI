@@ -27,5 +27,5 @@ long long int getCurrentTime()
 	t.QuadPart <<= 32;
 	t.QuadPart |= f.dwLowDateTime;
 
-	return t.QuadPart;
+	return (long long int)t.QuadPart;
 }

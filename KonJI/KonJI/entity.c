@@ -1,7 +1,7 @@
 #include "entity.h"
 
 struct Entity* entityCreate(struct Sprite* sprite, double x, double y, int z, int tpf) {
-	struct Entity* entity = malloc(sizeof(entity));
+	struct Entity* entity = malloc(sizeof(struct Entity));
 	entity->frame = 0;
 	entity->sprite = sprite;
 	entity->x = x;
