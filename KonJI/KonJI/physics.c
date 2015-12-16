@@ -18,7 +18,7 @@ int collisionBoundingBox(struct Entity *entity1, struct Entity *entity2) {
 		   (abs(entity1->y - entity2->y) * 2 < (entity1->sprite->h + entity2->sprite->h));
 }
 
-int collisionPixelPerfect(struct Entity *entity1, struct Entity *entity2) {
+struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struct Entity *entity2, unsigned int* pixels_len) {
 	if (!collisionBoundingBox(entity1, entity2)) {
 		return 0;
 	}
@@ -52,6 +52,9 @@ int collisionPixelPerfect(struct Entity *entity1, struct Entity *entity2) {
 		bottomRight.x = (int)floor(entity2->x + entity2->sprite->w);
 	}
 
+	*pixels_len = 0;
+	struct Vector2d* pixels = NULL;
+
 	CHAR_INFO empty_pixel;
 	empty_pixel.Attributes = 0;
 	empty_pixel.Char.AsciiChar = 0;
@@ -61,10 +64,13 @@ int collisionPixelPerfect(struct Entity *entity1, struct Entity *entity2) {
 			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - (int)floor(entity2->x), y - (int)floor(entity2->y));
 
 			if (!eq_charinfo(pixel1, empty_pixel) && !eq_charinfo(pixel2, empty_pixel)) {
-				return true;
+				*pixels_len++;
+				pixels = (struct Vector2d*)realloc(pixels, sizeof(struct Vector2d) * (*pixels_len));
+				pixels[*pixels_len - 1].x = x;
+				pixels[*pixels_len - 1].y = y;
 			}
 		}
 	}
 
-	return 0;
+	return pixels;
 }
