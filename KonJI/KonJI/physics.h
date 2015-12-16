@@ -6,4 +6,4 @@
 
 
 int collisionBoundingBox(struct Entity *entity1, struct Entity *entity2);
-int collisionPixelPerfect(struct Entity *entity1, struct Entity *entity2);
+struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struct Entity *entity2, unsigned int* pixels_len);
