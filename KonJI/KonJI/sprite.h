@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include "window.h"
+#include "vector2d.h"
 #include <stdio.h>
 
 struct Sprite {
@@ -19,4 +20,6 @@ struct Sprite* spriteLoad(const unsigned char* file_name);
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos);
 void spriteWrite(struct Sprite* sprite, const unsigned char* file_name);
 void spriteFree(struct Sprite* sprite);
-CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int frame, unsigned int x, unsigned int y);
+CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int x, unsigned int y);
+
+struct Vector2d spriteCenterOfMass(struct Sprite* sprite);

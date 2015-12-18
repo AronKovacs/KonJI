@@ -86,7 +86,7 @@ void entityListSwap(struct EntityListNode* start, int n1, int n2) {
 		if (n2 == i) {
 			swap_node2 = node;
 		}
-		if (n1 != NULL && n2 != NULL) {
+		if (swap_node1 != NULL && swap_node2 != NULL) {
 			break;
 		}
 		node = node->next;
@@ -101,5 +101,3 @@ void entityListFree(struct EntityListNode* node) {
 	entityFree(node->entity);
 	free(node);
 }
-
-struct EntityListNode* entityListSort(struct EntityListNode* start);

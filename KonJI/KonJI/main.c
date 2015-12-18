@@ -14,6 +14,8 @@
 #include "world.h"
 #include "volleyball_world.h"
 
+
+
 const COLORREF palette[16] =
 {
 	0x00000000, 0x00ffffff, 0x00ffffff, 0x00ffffff,
@@ -36,13 +38,13 @@ int main(void)
 
 	windowAddWorld(window, &volleyballWorld);
 
-	long long unsigned int previous = getCurrentTime();
-	long long unsigned int lag = 0;
-	long long unsigned int current = 0;
-	long long unsigned int elapsed = 0;
-	bool isRunning = true;
+	double previous = getCurrentTimed();
+	double lag = 0.0;
+	double current = 0.0;
+	double elapsed = 0.0;
+	bool b_running = true;
 
-	while (isRunning)
+	while (b_running)
 	{
 		// Process input
 		GetNumberOfConsoleInputEvents(rHnd, &numEvents);
@@ -62,21 +64,29 @@ int main(void)
 			free(eventBuffer);
 		}
 
-		current = getCurrentTime();
+		current = getCurrentTimed();
 		elapsed = current - previous;
 		previous = current;
 		lag += elapsed;
 
-		while (lag >= 16)
-		{
-			//update();
-			lag -= 16;
+		while (lag >= 0.016)
+		{			
+			worldUpdate((struct World*)window->worlds[window->activeWorld], elapsed);
+
+			current = getCurrentTimed();
+			elapsed = current - previous;
+			previous = current;
+
+			if (elapsed < 0.001) {
+				break;
+			}
+
+			lag -= elapsed;
 		}
 
 		windowClearConsoleBuffer(window);
-		//worldUpdate((struct World*)window->worlds[window->activeWorld], elapsed);
 		worldDraw(window, (struct World*)window->worlds[window->activeWorld]);
-		//entityDraw(window, h1);
+
 		windowDraw(window);
 	}
 

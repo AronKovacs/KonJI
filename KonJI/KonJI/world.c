@@ -29,10 +29,10 @@ void worldDraw(struct Window* window, struct World* world)
 			break;
 		}
 	}
-	// TODO Aron fixni sort
-	for (int i = 1; i < n; i++) {
+
+	for (int i = 1; i <= n; i++) {
 		int j = i;
-		while (j < 0 && entities[j - 1]->z < entities[j]->z) {
+		while (j > 0 && entities[j - 1]->z > entities[j]->z) {
 			struct Entity* temp = entities[j - 1];
 			entities[j - 1] = entities[j];
 			entities[j] = temp;
