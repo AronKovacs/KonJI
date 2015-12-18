@@ -39,6 +39,7 @@ struct Vector2d vector2dNormal(struct Vector2d vector) {
 	return ret_vector;
 }
 
+
 struct Vector2d vector2dRotation(struct Vector2d v, double angle) {
 	struct Vector2d ret_vector = {
 		cos(angle) * v.x - sin(angle) * v.y,
