@@ -15,4 +15,3 @@ struct EntityListNode* entityListInsert(struct EntityListNode* start, struct Ent
 struct EntityListNode* entityListPush(struct EntityListNode* start, struct Entity* entity);
 void entityListFree(struct EntityListNode* node);
 void entityListSwap(struct EntityListNode* start, int n1, int n2);
-struct EntityListNode* entityListSort(struct EntityListNode* start);

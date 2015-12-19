@@ -8,14 +8,12 @@ bool eq_charinfo(CHAR_INFO ch1, CHAR_INFO ch2) {
 	if (ch1.Attributes == ch1.Attributes && ch1.Char.AsciiChar == ch2.Char.AsciiChar) {
 		return true;
 	}
-	else {
-		return false;
-	}
+	return false;
 }
 
 int collisionBoundingBox(struct Entity *entity1, struct Entity *entity2) {
-	return (abs(entity1->x - entity2->x) * 2 < (entity1->sprite->w + entity2->sprite->w)) &&
-		   (abs(entity1->y - entity2->y) * 2 < (entity1->sprite->h + entity2->sprite->h));
+	return (abs(entity1->position.x - entity2->position.x) * 2 < (entity1->sprite->w + entity2->sprite->w)) &&
+		(abs(entity1->position.y - entity2->position.y) * 2 < (entity1->sprite->h + entity2->sprite->h));
 }
 
 struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struct Entity *entity2, unsigned int* pixels_len) {
@@ -24,32 +22,32 @@ struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struc
 	}
 
 	struct Vector2i topLeft, bottomRight;
-	if (entity1->y > entity2->y) {
-		topLeft.y = (int)floor(entity1->y);
+	if (entity1->position.y > entity2->position.y) {
+		topLeft.y = (int)floor(entity1->position.y);
 	}
 	else {
-		topLeft.y = (int)floor(entity2->y);
+		topLeft.y = (int)floor(entity2->position.y);
 	}
 
-	if ( (entity1->y + entity1->sprite->h) < (entity2->y + entity2->sprite->h)) {
-		bottomRight.y = (int)floor(entity1->y + entity1->sprite->h);
+	if ((entity1->position.y + entity1->sprite->h) < (entity2->position.y + entity2->sprite->h)) {
+		bottomRight.y = (int)floor(entity1->position.y + entity1->sprite->h);
 	}
 	else {
-		bottomRight.y = (int)floor(entity2->y + entity2->sprite->h);
+		bottomRight.y = (int)floor(entity2->position.y + entity2->sprite->h);
 	}
 
-	if (entity1->x > entity2->x) {
-		topLeft.x = (int)floor(entity1->x);
+	if (entity1->position.x > entity2->position.x) {
+		topLeft.x = (int)floor(entity1->position.x);
 	}
 	else {
-		topLeft.x = (int)floor(entity2->x);
+		topLeft.x = (int)floor(entity2->position.x);
 	}
 
-	if (entity1->x + entity1->sprite->w < entity2->x + entity2->sprite->w) {
-		bottomRight.x = (int)floor(entity1->x + entity1->sprite->w);
+	if (entity1->position.x + entity1->sprite->w < entity2->position.x + entity2->sprite->w) {
+		bottomRight.x = (int)floor(entity1->position.x + entity1->sprite->w);
 	}
 	else {
-		bottomRight.x = (int)floor(entity2->x + entity2->sprite->w);
+		bottomRight.x = (int)floor(entity2->position.x + entity2->sprite->w);
 	}
 
 	*pixels_len = 0;
@@ -60,8 +58,8 @@ struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struc
 	empty_pixel.Char.AsciiChar = 0;
 	for (int x = topLeft.x; x < bottomRight.x; x++) {
 		for (int y = topLeft.y; y < bottomRight.y; y++) {
-			CHAR_INFO pixel1 = spriteAt(entity1->sprite, entity1->frame, x - (int)floor(entity1->x), y - (int)floor(entity1->y));
-			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - (int)floor(entity2->x), y - (int)floor(entity2->y));
+			CHAR_INFO pixel1 = spriteAt(entity1->sprite, entity1->frame, x - (int)floor(entity1->position.x), y - (int)floor(entity1->position.y));
+			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - (int)floor(entity2->position.x), y - (int)floor(entity2->position.y));
 
 			if (!eq_charinfo(pixel1, empty_pixel) && !eq_charinfo(pixel2, empty_pixel)) {
 				*pixels_len++;
@@ -73,4 +71,12 @@ struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struc
 	}
 
 	return pixels;
+}
+
+void entityPhysicsApply(struct Entity* entity, double delta_time) {
+	entity->ephysics.acceleration = vector2dAdd(entity->ephysics.acceleration, vector2dScalarMult(delta_time, entity->ephysics.jerk));
+	entity->ephysics.speed = vector2dAdd(entity->ephysics.speed, vector2dScalarMult(delta_time, entity->ephysics.acceleration));
+
+	entity->ephysics.prev_position = entity->position;
+	entity->position = vector2dAdd(entity->position, vector2dScalarMult(delta_time, entity->ephysics.speed));
 }

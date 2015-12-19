@@ -52,10 +52,27 @@ struct Sprite* spriteLoad(const unsigned char* file_name) {
 	return sprite;
 }
 
+struct Sprite* spriteCreate(CHAR_INFO** bitmap, char w, char h, char frames) {
+	struct Sprite* sprite = malloc(sizeof(struct Sprite));
+	
+	sprite->bitmap = bitmap;
+	sprite->w = w;
+	sprite->h = h;
+	sprite->frames = frames;
+	sprite->current_frame = 0;
+
+	return sprite;
+}
+
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
+	if (sprite->bitmap == NULL) {
+		return;
+	}
+
 	for (int y = 0; y < sprite->h; y++) {
 		for (int x = 0; x < sprite->w; x++) {
-			if (x_pos + x >= window->w || y_pos + y >= window->h) {
+			if (x_pos + x >= window->w || y_pos + y >= window->h ||
+				x_pos + x < 0 || y_pos + y < 0) {
 				continue;
 			}
 			if (sprite->bitmap[sprite->current_frame][sprite->w * y + x].Char.AsciiChar != 0 &&
@@ -90,11 +107,29 @@ void spriteWrite(struct Sprite* sprite, const unsigned char* file_name) {
 	free(buffer);
 }
 
-CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int frame, unsigned int x, unsigned int y) {
-	return sprite->bitmap[frame][sprite->w * y + x];
+CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int x, unsigned int y) {
+	return sprite->bitmap[sprite->current_frame][sprite->w * y + x];
 }
 
 void spriteFree(struct Sprite* sprite) {
 	free(sprite->bitmap);
 	free(sprite);
+}
+
+struct Vector2d spriteCenterOfMass(struct Sprite* sprite) {
+	struct Vector2d ret_vector = { 0.0, 0.0 };
+	int n = 0;
+	for (unsigned int x = 0; x < sprite->w; x++) {
+		for (unsigned int y = 0; y < sprite->h; y++) {
+
+			CHAR_INFO cell = spriteAt(sprite, x, y);
+			if (cell.Attributes != 0 && cell.Char.AsciiChar != 0) {
+				n++;
+				ret_vector.x += x;
+				ret_vector.y += y;
+			}
+
+		}
+	}
+	return vector2dScalarMult(1 / n, ret_vector);
 }
