@@ -52,7 +52,23 @@ struct Sprite* spriteLoad(const unsigned char* file_name) {
 	return sprite;
 }
 
+struct Sprite* spriteCreate(CHAR_INFO** bitmap, char w, char h, char frames) {
+	struct Sprite* sprite = malloc(sizeof(struct Sprite));
+	
+	sprite->bitmap = bitmap;
+	sprite->w = w;
+	sprite->h = h;
+	sprite->frames = frames;
+	sprite->current_frame = 0;
+
+	return sprite;
+}
+
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos) {
+	if (sprite->bitmap == NULL) {
+		return;
+	}
+
 	for (int y = 0; y < sprite->h; y++) {
 		for (int x = 0; x < sprite->w; x++) {
 			if (x_pos + x >= window->w || y_pos + y >= window->h ||

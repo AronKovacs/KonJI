@@ -17,6 +17,7 @@ struct Sprite {
 //format
 //[frames max 255][width max 255][height max 255][2bytes(~CHAR_INFO~) <- f*w*h]
 struct Sprite* spriteLoad(const unsigned char* file_name);
+struct Sprite* spriteCreate(CHAR_INFO** bitmap, char w, char h, char frames);
 void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos);
 void spriteWrite(struct Sprite* sprite, const unsigned char* file_name);
 void spriteFree(struct Sprite* sprite);
