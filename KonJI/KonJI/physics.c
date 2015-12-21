@@ -12,8 +12,14 @@ bool eq_charinfo(CHAR_INFO ch1, CHAR_INFO ch2) {
 }
 
 int collisionBoundingBox(struct Entity *entity1, struct Entity *entity2) {
-	return (abs(entity1->position.x - entity2->position.x) * 2 < (entity1->sprite->w + entity2->sprite->w)) &&
-		(abs(entity1->position.y - entity2->position.y) * 2 < (entity1->sprite->h + entity2->sprite->h));
+	int e1x = (int)(entity1->position.x + (entity1->sprite->w / 2));
+	int e1y = (int)(entity1->position.y + (entity1->sprite->h / 2));
+	int e2x = (int)(entity2->position.x + (entity2->sprite->w / 2));
+	int e2y = (int)(entity2->position.y + (entity2->sprite->h / 2));
+
+	return (abs(e1x- e2x) * 2 < (entity1->sprite->w + entity2->sprite->w)) 
+		   &&
+		   (abs(e1y - e2y) * 2 < (entity1->sprite->h + entity2->sprite->h));
 }
 
 struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struct Entity *entity2, unsigned int* pixels_len) {
@@ -56,16 +62,16 @@ struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struc
 	CHAR_INFO empty_pixel;
 	empty_pixel.Attributes = 0;
 	empty_pixel.Char.AsciiChar = 0;
-	for (int x = topLeft.x; x < bottomRight.x; x++) {
-		for (int y = topLeft.y; y < bottomRight.y; y++) {
-			CHAR_INFO pixel1 = spriteAt(entity1->sprite, entity1->frame, x - (int)floor(entity1->position.x), y - (int)floor(entity1->position.y));
-			CHAR_INFO pixel2 = spriteAt(entity2->sprite, entity2->frame, x - (int)floor(entity2->position.x), y - (int)floor(entity2->position.y));
+	for (int y = topLeft.y; y < bottomRight.y; y++) {
+		for (int x = topLeft.x; x < bottomRight.x; x++) {
+			CHAR_INFO pixel1 = spriteAt(entity1->sprite, x - (int)floor(entity1->position.x), y - (int)floor(entity1->position.y));
+			CHAR_INFO pixel2 = spriteAt(entity2->sprite, x - (int)floor(entity2->position.x), y - (int)floor(entity2->position.y));
 
 			if (!eq_charinfo(pixel1, empty_pixel) && !eq_charinfo(pixel2, empty_pixel)) {
-				*pixels_len++;
+				(*pixels_len)++;
 				pixels = (struct Vector2d*)realloc(pixels, sizeof(struct Vector2d) * (*pixels_len));
-				pixels[*pixels_len - 1].x = x;
-				pixels[*pixels_len - 1].y = y;
+				pixels[(*pixels_len) - 1].x = x;
+				pixels[(*pixels_len) - 1].y = y;
 			}
 		}
 	}

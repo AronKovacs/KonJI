@@ -96,26 +96,29 @@ struct Vector2d vector2dReflection(struct Vector2d reflector, struct Vector2d re
 
 struct Vector2d vector2dLineLineIntersection(struct Vector2d start1, struct Vector2d vect1, struct Vector2d start2, struct Vector2d vect2, bool* parallel)
 {   
+	struct Vector2d ret_vector = { 0.0, 0.0 };
 
-	struct Vector2d end1 = { start1.x + vect1.x, start1.y + vect1.y };
-	struct Vector2d end2 = { start2.x + vect2.x, start2.y + vect2.y };
+	double x1 = start1.x;
+	double y1 = start1.y;
+	double x2 = start1.x + vect1.x;
+	double y2 = start1.y + vect1.y;
 
-	double a1 = end1.y - start1.y;
-	double b1 = start1.x - end1.x;
-	double c1 = end1.x*start1.y - start1.x*end2.x;
+	double x3 = start2.x;
+	double y3 = start2.y;
+	double x4 = start2.x + vect2.x;
+	double y4 = start2.y + vect2.y;
 
-	double a2 = end2.y - start2.y;
-	double b2 = start2.x - end2.x;
-	double c2 = end2.x*start2.y - start2.x*end2.x;
+	double denominator = (x1 - x2)*(y3 - y4) - (y1 - y2)*(x3 - x4);
 
-	double denom = a1*b2 - a2*b1;
-	if (denom == 0.0) {
+	if (denominator == 0.0) {
 		*parallel = true;
 		return start1; //return garbage
 	}
 	*parallel = false;
 
-	struct Vector2d ret_vector = { (b1*c2 - b2*c1) / denom, (a2*c1 - a1*c2) / denom };
+	ret_vector.x = ((x1*y2 - y1*x2)*(x3 - x4) - (x1 - x2)*(x3*y4 - y3*x4)) / denominator;
+	ret_vector.y = ((x1*y2 - y1*x2)*(y3 - y4) - (y1 - y2)*(x3*y4 - y3*x4)) / denominator;
+
 	return ret_vector;
 }
 

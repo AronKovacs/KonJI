@@ -89,7 +89,7 @@ void volleyballUpdate(struct VolleyballWorld* world, double delta_time){
 	//check for collisions multiple times in case collision handling creates new collisions
 	for (int i = 0; i < 1; i++) {
 		for (struct EntityListNode* node1 = world->super.entities; node1 != NULL; node1 = node1->next) {
-			for (struct EntityListNode* node2 = node1->next; node2 != NULL; node2 = node2 = node2->next) {
+			for (struct EntityListNode* node2 = node1->next; node2 != NULL; node2 = node2->next) { // ARON SHAME: node2 = node2 = node2->next
 				if (!(node1->entity->ephysics.b_collides && node2->entity->ephysics.b_collides)) {
 					continue;
 				}
@@ -119,40 +119,48 @@ void volleyballUpdate(struct VolleyballWorld* world, double delta_time){
 						if (!entity1->ephysics.b_static && entity1->ephysics.b_affected_by_collisions) {
 							//prev position -> position = displacement vector; displacement (ds)
 							//magic
-							struct Vector2d displacement_vector = vector2dSubtract(entity1->ephysics.prev_position, entity1->position);
-							struct Vector2d tl_ds_intersection = vector2dLineLineIntersection(tl_start, tl_vector, entity1->ephysics.prev_position, displacement_vector, &e1_failsafe);
+							struct Vector2d displacement_vector = vector2dSubtract(entity1->position, entity1->ephysics.prev_position);
 
-							if (!e1_failsafe) {
-								struct Vector2d new_vector = vector2dNormalize(vector2dReflection(tl_vector, displacement_vector));
+							if (vector2dMagnitude(displacement_vector) > 0.001) {
 
-								double collision_distance = vector2dPointPointDistance(entity1->position, tl_ds_intersection);
+								struct Vector2d tl_ds_intersection = vector2dLineLineIntersection(tl_start, tl_vector, entity1->ephysics.prev_position, displacement_vector, &e1_failsafe);
 
-								entity1->ephysics.prev_position = entity1->position;
-								entity1->position = vector2dScalarMult(collision_distance, new_vector);
+								if (!e1_failsafe) {
+									struct Vector2d new_vector = vector2dNormalize(vector2dReflection(tl_vector, displacement_vector));
 
-								entity1->ephysics.jerk = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.jerk), new_vector);
-								entity1->ephysics.acceleration = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.acceleration), new_vector);
-								entity1->ephysics.speed = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.speed), new_vector);
+									double collision_distance = vector2dPointPointDistance(entity1->position, tl_ds_intersection);
+
+									entity1->ephysics.prev_position = entity1->position;
+									entity1->position = vector2dAdd(tl_ds_intersection, vector2dScalarMult(collision_distance, new_vector));
+
+									entity1->ephysics.jerk = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.jerk), new_vector);
+									entity1->ephysics.acceleration = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.acceleration), new_vector);
+									entity1->ephysics.speed = vector2dScalarMult(entity1->ephysics.bounciness*vector2dMagnitude(entity1->ephysics.speed), new_vector);
+								}
 							}
 
 						}
 
 						//entity2
 						if (!entity2->ephysics.b_static && entity2->ephysics.b_affected_by_collisions) {
-							struct Vector2d displacement_vector = vector2dSubtract(entity2->ephysics.prev_position, entity2->position);
-							struct Vector2d tl_ds_intersection = vector2dLineLineIntersection(tl_start, tl_vector, entity2->ephysics.prev_position, displacement_vector, &e1_failsafe);
+							struct Vector2d displacement_vector = vector2dSubtract(entity2->position, entity2->ephysics.prev_position);
 
-							if (!e1_failsafe) {
-								struct Vector2d new_vector = vector2dNormalize(vector2dReflection(tl_vector, displacement_vector));
+							if (vector2dMagnitude(displacement_vector) > 0.001) {
 
-								double collision_distance = vector2dPointPointDistance(entity2->position, tl_ds_intersection);
+								struct Vector2d tl_ds_intersection = vector2dLineLineIntersection(tl_start, tl_vector, entity2->ephysics.prev_position, displacement_vector, &e1_failsafe);
 
-								entity2->ephysics.prev_position = entity2->position;
-								entity2->position = vector2dScalarMult(collision_distance, new_vector);
+								if (!e1_failsafe) {
+									struct Vector2d new_vector = vector2dNormalize(vector2dReflection(tl_vector, displacement_vector));
 
-								entity2->ephysics.jerk = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.jerk), new_vector);
-								entity2->ephysics.acceleration = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.acceleration), new_vector);
-								entity2->ephysics.speed = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.speed), new_vector);
+									double collision_distance = vector2dPointPointDistance(entity2->position, tl_ds_intersection);
+
+									entity2->ephysics.prev_position = entity2->position;
+									entity2->position = vector2dAdd(tl_ds_intersection, vector2dScalarMult(collision_distance, new_vector));
+
+									entity2->ephysics.jerk = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.jerk), new_vector);
+									entity2->ephysics.acceleration = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.acceleration), new_vector);
+									entity2->ephysics.speed = vector2dScalarMult(entity2->ephysics.bounciness*vector2dMagnitude(entity2->ephysics.speed), new_vector);
+								}
 							}
 
 						}
@@ -235,7 +243,7 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 	CHAR_INFO** floor_bitmap = malloc(sizeof(CHAR_INFO*));
 	floor_bitmap[0] = malloc(floor_w * floor_h * sizeof(CHAR_INFO));
 	for (int i = 0; i < floor_w * floor_h; i++) {
-		floor_bitmap[0][i].Attributes = 1;
+		floor_bitmap[0][i].Attributes = 10;
 		floor_bitmap[0][i].Char.AsciiChar = 1;
 	}
 	struct Entity* floor = entityCreate(spriteCreate(floor_bitmap, floor_w, floor_h, 0), -10.0, 50.0, 0, 0);
@@ -262,10 +270,10 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 	east_wall->ephysics.b_affected_by_collisions = false;
 	
 	world->super.entities = entityListCreate(world->ball);
-	//entityListPush(world->super.entities, world->player2);
-	//entityListPush(world->super.entities, world->ball);
+	entityListPush(world->super.entities, world->player1);
+	entityListPush(world->super.entities, world->player2);
 
-	entityListPush(world->super.entities, floor);
+	//entityListPush(world->super.entities, floor);
 	//entityListPush(world->super.entities, west_wall);
 	//entityListPush(world->super.entities, east_wall);
 
