@@ -157,7 +157,7 @@ int main(void)
 		lag += elapsed;
 
 		double delta_time = elapsed;
-		while (lag >= 0.030)
+		while (lag >= 0.016)
 		{
 			LARGE_INTEGER pre_update;
 			QueryPerformanceCounter(&pre_update);

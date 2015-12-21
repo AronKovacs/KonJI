@@ -230,28 +230,44 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 	world->ball = entityCreate(spriteLoad("data/mini_hitler.kgf"), 10, 10, 9, 0);
 	resetLevel(world);
 
-	struct Entity* floor = entityCreate(spriteCreate(NULL, 100, 20, 0), -10.0, 50.0, 0, 0);
+	int floor_w = 100;
+	int floor_h = 20;
+	CHAR_INFO** floor_bitmap = malloc(sizeof(CHAR_INFO*));
+	floor_bitmap[0] = malloc(floor_w * floor_h * sizeof(CHAR_INFO));
+	for (int i = 0; i < floor_w * floor_h; i++) {
+		floor_bitmap[0][i].Attributes = 1;
+		floor_bitmap[0][i].Char.AsciiChar = 1;
+	}
+	struct Entity* floor = entityCreate(spriteCreate(floor_bitmap, floor_w, floor_h, 0), -10.0, 50.0, 0, 0);
 	floor->ephysics.b_static = true;
 	floor->ephysics.b_collides = true;
 	floor->ephysics.b_affected_by_collisions = false;
 
-	struct Entity* west_wall = entityCreate(spriteCreate(NULL, 20, 70, 0), -20, -10, 0, 0);
+	int wall_w = 20;
+	int wall_h = 70;
+	CHAR_INFO** wall_bitmap = malloc(sizeof(CHAR_INFO*));
+	wall_bitmap[0] = malloc(wall_w * wall_h * sizeof(CHAR_INFO));
+	for (int i = 0; i < wall_w * wall_h; i++) {
+		wall_bitmap[0][i].Attributes = 1;
+		wall_bitmap[0][i].Char.AsciiChar = 1;
+	}
+	struct Entity* west_wall = entityCreate(spriteCreate(wall_bitmap, wall_w, wall_h, 0), -20, -10, 0, 0);
 	west_wall->ephysics.b_static = true;
 	west_wall->ephysics.b_collides = true;
 	west_wall->ephysics.b_affected_by_collisions = false;
 
-	struct Entity* east_wall = entityCreate(spriteCreate(NULL, 20, 70, 0),  80, -10, 0, 0);
+	struct Entity* east_wall = entityCreate(spriteCreate(wall_bitmap, wall_w, wall_h, 0),  80, -10, 0, 0);
 	east_wall->ephysics.b_static = true;
 	east_wall->ephysics.b_collides = true;
 	east_wall->ephysics.b_affected_by_collisions = false;
 	
-	world->super.entities = entityListCreate(world->player1);
-	entityListPush(world->super.entities, world->player2);
-	entityListPush(world->super.entities, world->ball);
+	world->super.entities = entityListCreate(world->ball);
+	//entityListPush(world->super.entities, world->player2);
+	//entityListPush(world->super.entities, world->ball);
 
 	entityListPush(world->super.entities, floor);
-	entityListPush(world->super.entities, west_wall);
-	entityListPush(world->super.entities, east_wall);
+	//entityListPush(world->super.entities, west_wall);
+	//entityListPush(world->super.entities, east_wall);
 
 	
 }
