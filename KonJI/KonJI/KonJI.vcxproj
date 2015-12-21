@@ -29,7 +29,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -101,11 +101,15 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -142,23 +146,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="camera.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="lists.h" />
+    <ClInclude Include="map.h" />
+    <ClInclude Include="palette.h" />
+    <ClInclude Include="physics.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="sprite.h" />
     <ClInclude Include="utilities.h" />
+    <ClInclude Include="vector2d.h" />
+    <ClInclude Include="vector2i.h" />
+    <ClInclude Include="volleyball_world.h" />
     <ClInclude Include="window.h" />
+    <ClInclude Include="world.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KonJI.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="entity.c" />
+    <ClCompile Include="lists.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="map.c" />
+    <ClCompile Include="palette.c" />
+    <ClCompile Include="physics.c" />
+    <ClCompile Include="camera.c" />
     <ClCompile Include="sprite.c" />
     <ClCompile Include="utilities.c" />
+    <ClCompile Include="vector2d.c" />
+    <ClCompile Include="vector2i.c" />
+    <ClCompile Include="volleyball_world.c" />
     <ClCompile Include="window.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="entity.c" />
+    <ClCompile Include="world.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

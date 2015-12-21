@@ -9,8 +9,7 @@
 #include <inttypes.h>
 #include <windows.h>
 
-long long int getCurrentTime()
-{
+long long int getCurrentTime(){
 	SYSTEMTIME s;
 	FILETIME f;
 	LARGE_INTEGER t;
@@ -27,5 +26,9 @@ long long int getCurrentTime()
 	t.QuadPart <<= 32;
 	t.QuadPart |= f.dwLowDateTime;
 
-	return t.QuadPart;
+	return (long long int)t.QuadPart;
+}
+
+double getCurrentTimed(){
+	return getCurrentTime() / 1000;
 }

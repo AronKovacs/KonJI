@@ -1,15 +1,26 @@
 #pragma once
 
 #include <windows.h>
+#include "window.h"
+#include "vector2d.h"
+#include <stdio.h>
 
 struct Sprite {
+	char frames;
 	char w;
 	char h;
-	CHAR_INFO* bitmap;
+
+	char current_frame;
+	CHAR_INFO** bitmap;
 };
 
 //format
-//[width max 256][height max 256][2bytes(~CHAR_INFO~) <- w*h]
-struct Sprite* loadSprite(const unsigned char* file_name);
-void drawSprite(struct KonJIWindow* window, struct Sprite* sprite, int x_pos, int y_pos);
-void writeSprite(struct Sprite* sprite, const unsigned char* file_name);
+//[frames max 255][width max 255][height max 255][2bytes(~CHAR_INFO~) <- f*w*h]
+struct Sprite* spriteLoad(const unsigned char* file_name);
+struct Sprite* spriteCreate(CHAR_INFO** bitmap, char w, char h, char frames);
+void spriteDraw(struct Window* window, struct Sprite* sprite, int x_pos, int y_pos);
+void spriteWrite(struct Sprite* sprite, const unsigned char* file_name);
+void spriteFree(struct Sprite* sprite);
+CHAR_INFO spriteAt(struct Sprite* sprite, unsigned int x, unsigned int y);
+
+struct Vector2d spriteCenterOfMass(struct Sprite* sprite);

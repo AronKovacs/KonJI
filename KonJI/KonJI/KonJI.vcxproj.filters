@@ -1,58 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="KonJI.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lists.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="map.c">
+      <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="sprite.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window.c">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
     </ClCompile>
     <ClCompile Include="utilities.c">
-      <Filter>Source Files</Filter>
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="window.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="world.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="palette.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="volleyball_world.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="physics.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2i.c">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="vector2d.c">
+      <Filter>sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="entity.c">
-      <Filter>Source Files</Filter>
-    </None>
+    <ClInclude Include="lists.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="map.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="utilities.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="world.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="palette.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="volleyball_world.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="physics.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2i.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="vector2d.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="KonJI.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{a4ae9201-f507-497c-b043-485c3c14d4a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{863b5569-7778-4ee5-922b-3d99333cfdc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
