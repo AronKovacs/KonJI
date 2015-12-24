@@ -1,3 +1,4 @@
 #pragma once
 
-long long int getCurrentTime(void);
+unsigned long long int getCurrentTime(void);
+double getCurrentTimed();
