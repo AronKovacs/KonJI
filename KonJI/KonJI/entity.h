@@ -16,6 +16,10 @@ struct EntityPhysics {
 	struct Vector2d speed;
 	struct Vector2d acceleration;
 	struct Vector2d jerk;
+
+	struct Vector2d center;
+	double radius;
+
 };
 
 

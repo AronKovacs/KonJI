@@ -9,26 +9,18 @@
 #include <inttypes.h>
 #include <windows.h>
 
-long long int getCurrentTime(){
+unsigned long long int getCurrentTime(){
 	SYSTEMTIME s;
 	FILETIME f;
-	LARGE_INTEGER t;
 
-	s.wYear = 1970;
-	s.wMonth = 1;
-	s.wDay = 1;
-	s.wHour = 0;
-	s.wMinute = 0;
-	s.wSecond = 0;
-	s.wMilliseconds = 0;
+	GetSystemTime(&s);
 	SystemTimeToFileTime(&s, &f);
-	t.QuadPart = f.dwHighDateTime;
-	t.QuadPart <<= 32;
-	t.QuadPart |= f.dwLowDateTime;
 
-	return (long long int)t.QuadPart;
+	unsigned long long int result = (((ULONGLONG)f.dwHighDateTime) << 32) + f.dwLowDateTime;
+
+	return result;
 }
 
 double getCurrentTimed(){
-	return getCurrentTime() / 1000;
+	return (double)getCurrentTime() / 10000.0;
 }

@@ -76,6 +76,10 @@ struct Vector2d* collisionPixelPerfect(const struct Entity *entity1, const struc
 		}
 	}
 
+	if (pixels) {
+		int sek = 0;
+	}
+
 	return pixels;
 }
 
