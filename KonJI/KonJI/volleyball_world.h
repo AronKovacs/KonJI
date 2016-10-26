@@ -20,11 +20,11 @@ struct VolleyballWorld
 
 	int score_max;
 	int score_player1;
-	struct Sprite* score_sprite1;
-	struct Sprite* score_sprite2;
+	struct Entity** score_pixels;
 	int score_offset_x;
 	int score_offset_y;
 	int score_gap;
+	int winner;
 
 	struct WorldPhysics wphysics;
 };

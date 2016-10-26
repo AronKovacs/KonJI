@@ -52,14 +52,17 @@ void volleyballProcessInput(struct VolleyballWorld* world, INPUT_RECORD* events,
 			}
 		}
 	}
-
 }
 
 void resetLevel(struct VolleyballWorld* world) {
 	struct Vector2d zero_vector = { 0.0, 0.0 };
 
-	world->player1->position.x = 15;
-	world->player1->position.y = 40;
+	if (world->score_player1 == 0 || world->score_player1 == world->score_max) {
+		world->score_player1 = world->score_max / 2;
+	}
+
+	world->player1->position.x = 20 - world->player1->sprite->w / 2;
+	world->player1->position.y = 50 - world->player2->sprite->h;
 	world->player1->ephysics.prev_position = world->player1->position;
 	world->player1->ephysics.b_static = false;
 	world->player1->ephysics.b_collides = true;
@@ -68,8 +71,8 @@ void resetLevel(struct VolleyballWorld* world) {
 	world->player1->ephysics.acceleration = zero_vector;
 	world->player1->ephysics.speed = zero_vector;
 
-	world->player2->position.x = 55;
-	world->player2->position.y = 40;
+	world->player2->position.x = 60 - world->player2->sprite->w / 2;
+	world->player2->position.y = 50 - world->player2->sprite->h;
 	world->player2->ephysics.prev_position = world->player1->position;
 	world->player2->ephysics.b_static = false;
 	world->player2->ephysics.b_collides = true;
@@ -78,7 +81,7 @@ void resetLevel(struct VolleyballWorld* world) {
 	world->player2->ephysics.acceleration = zero_vector;
 	world->player2->ephysics.speed = zero_vector;
 
-	world->ball->position.x = 13;
+	world->ball->position.x = (world->winner == 1 ? 20 : 60) - world->ball->sprite->w / 2;
 	world->ball->position.y = 10;
 	world->ball->ephysics.prev_position = world->player1->position;
 	world->ball->ephysics.b_static = false;
@@ -103,6 +106,41 @@ void volleyballUpdate(struct VolleyballWorld* world, double delta_time) {
 		if (node->entity == world->ball && node->entity->position.y > 50 - (world->ball->sprite->h)) {
 			node->entity->ephysics.speed.y *= -1.0;
 			//node->entity->position.y = 50 - node->entity->sprite->h - 0.1;
+
+			//score
+			if (world->ball->position.x + world->ball->ephysics.radius < 40) {
+				world->score_player1--;
+				world->winner = 2;
+			}
+			else {
+				world->score_player1++;
+				world->winner = 1;
+			}
+			resetLevel(world);
+			return;
+		}
+		else {
+			for (int i = 0; i < world->score_max * 2; i++) {
+				for (int j = 0; j < world->score_pixels[0]->sprite->w * world->score_pixels[0]->sprite->h; j++) {
+					world->score_pixels[i]->sprite->bitmap[0][j].Char.AsciiChar = 0;
+					world->score_pixels[i]->sprite->bitmap[0][j].Attributes = 0;
+					world->score_pixels[i]->z = 0;
+				}
+			}
+			for (int i = 0; i < world->score_player1; i++) {
+				for (int j = 0; j < world->score_pixels[0]->sprite->w * world->score_pixels[0]->sprite->h; j++) {
+					world->score_pixels[i]->sprite->bitmap[0][j].Char.AsciiChar = 219;
+					world->score_pixels[i]->sprite->bitmap[0][j].Attributes = 9;
+					world->score_pixels[i]->z = 100;
+				}
+			}
+			for (int i = 0; i < world->score_max - world->score_player1; i++) {
+				for (int j = 0; j < world->score_pixels[0]->sprite->w * world->score_pixels[0]->sprite->h; j++) {
+					world->score_pixels[world->score_max * 2 - i - 1]->sprite->bitmap[0][j].Char.AsciiChar = 219;
+					world->score_pixels[world->score_max * 2 - i - 1]->sprite->bitmap[0][j].Attributes = 12;
+					world->score_pixels[world->score_max * 2 - i - 1]->z = 100;
+				}
+			}
 		}
 
 		if (node->entity == world->ball && node->entity->position.x < 0) {
@@ -122,8 +160,26 @@ void volleyballUpdate(struct VolleyballWorld* world, double delta_time) {
 		}
 
 		if (node->entity == world->player1 || node->entity == world->player2) {
-			if (node->entity->position.y > 40.0) {
-				node->entity->position.y = 40.0;
+			if (node->entity->position.x > 80 - world->player1->sprite->w) {
+				node->entity->position.x = 80 - world->player1->sprite->w;
+			}
+
+			if (node->entity->position.x < 0.0) {
+				node->entity->position.x = 0.0;
+			}
+
+			//center
+			if (world->player1->position.x > 40 - world->player1->sprite->w) {
+				world->player1->position.x = 40 - world->player1->sprite->w;
+			}
+
+			if (world->player2->position.x < 40) {
+				world->player2->position.x = 40;
+			}
+			//end center
+
+			if (node->entity->position.y > 50 - world->player1->sprite->h) {
+				node->entity->position.y = 50 - world->player1->sprite->h;
 				struct Vector2d zero_vector = { 0.0, 0.0 };
 				node->entity->ephysics.jerk = zero_vector;
 				node->entity->ephysics.acceleration = zero_vector;
@@ -351,8 +407,6 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 {
 	/*
 	TODOS - calibrate gravity
-		  - something to separate the field to halves
-		  - score system
 	*/
 
 	world->super.vtable = &VolleyballWorldVTable;
@@ -363,71 +417,67 @@ void volleyballWorldInit(struct VolleyballWorld* world)
 	world->super.camera.pos.y = 0;
 
 	world->wphysics.gravity.x = 0;
-	world->wphysics.gravity.y = 8;
+	world->wphysics.gravity.y = 26;
 
-	world->score_max = 8;
-	world->score_player1 = 4;
-	world->score_sprite1 = spriteLoad("data/usa_score.kgf");
-	world->score_sprite2 = spriteLoad("data/cccp_score.kgf");
-	world->score_offset_x = 2;
-	world->score_offset_y = 1;
-	world->score_gap = 0;
-
-
-	world->player1 = entityCreate(spriteLoad("data/usa_ball.kgf"), 15, 41, 10, 0);
+	world->player1 = entityCreate(spriteLoad("data/usa_ball_13_7.kgf"), 15, 41, 10, 0);
 	world->player1->ephysics.center.x = world->player1->sprite->w / 2;
 	world->player1->ephysics.center.y = world->player1->sprite->h;
-	world->player1->ephysics.radius = 8.75;
+	world->player1->ephysics.radius = world->player1->sprite->w / 2 + 0.25;
 
-	world->player2 = entityCreate(spriteLoad("data/cccp_ball.kgf"), 55, 41, 10, 0);
+	world->player2 = entityCreate(spriteLoad("data/cccp_ball_13_7.kgf"), 55, 41, 10, 0);
 	world->player2->ephysics.center.x = world->player2->sprite->w / 2;
 	world->player2->ephysics.center.y = world->player2->sprite->h;
-	world->player2->ephysics.radius = 8.75;
+	world->player2->ephysics.radius = world->player2->sprite->w / 2 + 0.25;
 
 	world->ball = entityCreate(spriteLoad("data/mini_hitler.kgf"), 10, 10, 9, 0);
 	world->ball->ephysics.center.x = world->ball->sprite->w / 2;
 	world->ball->ephysics.center.y = world->ball->sprite->h / 2;
-	world->ball->ephysics.radius = 4.75;
-	resetLevel(world);
+	world->ball->ephysics.radius = world->ball->sprite->w / 2;
 
-	int floor_w = 100;
-	int floor_h = 20;
-	CHAR_INFO** floor_bitmap = malloc(sizeof(CHAR_INFO*));
-	floor_bitmap[0] = malloc(floor_w * floor_h * sizeof(CHAR_INFO));
-	for (int i = 0; i < floor_w * floor_h; i++) {
-		floor_bitmap[0][i].Attributes = 10;
-		floor_bitmap[0][i].Char.AsciiChar = 1;
-	}
-	struct Entity* floor = entityCreate(spriteCreate(floor_bitmap, floor_w, floor_h, 0), -10.0, 50.0, 0, 0);
-	floor->ephysics.b_static = true;
-	floor->ephysics.b_collides = true;
-	floor->ephysics.b_affected_by_collisions = false;
-
-	int wall_w = 20;
-	int wall_h = 70;
-	CHAR_INFO** wall_bitmap = malloc(sizeof(CHAR_INFO*));
-	wall_bitmap[0] = malloc(wall_w * wall_h * sizeof(CHAR_INFO));
-	for (int i = 0; i < wall_w * wall_h; i++) {
-		wall_bitmap[0][i].Attributes = 1;
-		wall_bitmap[0][i].Char.AsciiChar = 1;
-	}
-	struct Entity* west_wall = entityCreate(spriteCreate(wall_bitmap, wall_w, wall_h, 0), -20, -10, 0, 0);
-	west_wall->ephysics.b_static = true;
-	west_wall->ephysics.b_collides = true;
-	west_wall->ephysics.b_affected_by_collisions = false;
-
-	struct Entity* east_wall = entityCreate(spriteCreate(wall_bitmap, wall_w, wall_h, 0),  80, -10, 0, 0);
-	east_wall->ephysics.b_static = true;
-	east_wall->ephysics.b_collides = true;
-	east_wall->ephysics.b_affected_by_collisions = false;
-	
 	world->super.entities = entityListCreate(world->ball);
 	entityListPush(world->super.entities, world->player1);
 	entityListPush(world->super.entities, world->player2);
 
-	//entityListPush(world->super.entities, floor);
-	//entityListPush(world->super.entities, west_wall);
-	//entityListPush(world->super.entities, east_wall);
+	world->score_max = 8;
+	world->score_player1 = 4;
+	world->score_offset_x = 3;
+	world->score_offset_y = 1;
+	world->score_gap = 1;
+	world->winner = 1;
 
-	
+	struct Sprite* score_pixel;
+	world->score_pixels = malloc(world->score_max * 2 * sizeof(struct Entity*));
+	for (int i = 0; i < world->score_max; i++) {
+		score_pixel = malloc(sizeof(struct Sprite));
+		score_pixel->frames = 1;
+		score_pixel->w = 2;
+		score_pixel->h = 2;
+		score_pixel->current_frame = 0;
+		score_pixel->bitmap = malloc(sizeof(CHAR_INFO*));
+		score_pixel->bitmap[0] = malloc(score_pixel->w * score_pixel->h * sizeof(CHAR_INFO));
+		for (int i = 0; i < score_pixel->w * score_pixel->h; i++) {
+			score_pixel->bitmap[0][i].Char.AsciiChar = 0;
+			score_pixel->bitmap[0][i].Attributes = 0;
+		}
+		world->score_pixels[i] = entityCreate(score_pixel, world->score_offset_x + score_pixel->w * i + i * world->score_gap, world->score_offset_y, 100, 0);
+		world->score_pixels[i]->ephysics.b_static = true;
+		entityListPush(world->super.entities, world->score_pixels[i]);
+
+		score_pixel = malloc(sizeof(struct Sprite));
+		score_pixel->frames = 1;
+		score_pixel->w = 2;
+		score_pixel->h = 2;
+		score_pixel->current_frame = 0;
+		score_pixel->bitmap = malloc(sizeof(CHAR_INFO*));
+		score_pixel->bitmap[0] = malloc(score_pixel->w * score_pixel->h * sizeof(CHAR_INFO));
+		for (int i = 0; i < score_pixel->w * score_pixel->h; i++) {
+			score_pixel->bitmap[0][i].Char.AsciiChar = 0;
+			score_pixel->bitmap[0][i].Attributes = 0;
+		}
+		world->score_pixels[world->score_max * 2 - i - 1] = entityCreate(score_pixel, 80 - (world->score_offset_x + score_pixel->w * i + i * world->score_gap + score_pixel->w), world->score_offset_y, 100, 0);
+		world->score_pixels[world->score_max * 2 - i - 1]->ephysics.b_static = true;
+		entityListPush(world->super.entities, world->score_pixels[world->score_max * 2 - i - 1]);
+	}
+
+	resetLevel(world);
 }
